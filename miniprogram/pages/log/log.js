@@ -42,7 +42,7 @@ Page({
   preview(e) { const urls = this.data.images.filter(image => image.url).map(image => image.url); wx.previewImage({ current: e.currentTarget.dataset.url, urls }); },
   async save() {
     if (this.data.saving) return;
-    if (!this.data.text.trim()) return api.showError(new Error('请填写康复反馈文字。'));
+    if (!this.data.text.trim()) return api.showError(new Error('请填写训练反馈文字。'));
     if (this.data.images.some(image => image.status !== 'ready')) return api.showError(new Error('有图片上传失败或尚未完成，请重试或移除后保存。'));
     this.setData({ saving: true });
     try { await api.call('logs.save', { bookingId: this.data.bookingId, text: this.data.text.trim(), fileIds: this.data.images.map(image => image.fileId) }); wx.showToast({ title: '日志已保存', icon: 'success' }); this.load(); }

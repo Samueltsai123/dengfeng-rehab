@@ -3,7 +3,7 @@
   <view class="card">
     <text class="label">姓名</text><input class="field" value="{{name}}" bindinput="inputName" maxlength="30"/>
     <text class="label">手机号</text><input class="field" value="{{phone}}" bindinput="inputPhone" type="number" maxlength="11"/>
-    <view wx:if="{{role!=='student'}}"><text class="label">康复备注</text><textarea class="field textarea" value="{{notes}}" bindinput="inputNotes" maxlength="2000" placeholder="选填"/></view>
+    <view wx:if="{{role!=='student'}}"><text class="label">训练备注</text><textarea class="field textarea" value="{{notes}}" bindinput="inputNotes" maxlength="2000" placeholder="选填"/></view>
     <button class="btn" loading="{{saving}}" disabled="{{saving}}" bindtap="save">{{create?'创建档案':'保存资料'}}</button>
   </view>
   <view wx:if="{{!create}}">
@@ -32,10 +32,10 @@
       <button wx:if="{{hasMoreBindings}}" class="btn btn-secondary" bindtap="moreBindings">加载更多申请</button>
     </view>
     <view class="card">
-      <view class="title">康复记录</view>
+      <view class="title">训练记录</view>
       <view wx:if="{{!logs.length}}" class="empty">暂无训练记录</view>
       <view wx:for="{{logs}}" wx:key="id"><view class="divider"/><view>{{item.date}} · {{item.projectName}} · {{item.therapistName}}</view><view class="muted">{{item.text}}</view><button class="btn btn-secondary" data-id="{{item.bookingId}}" bindtap="log">查看日志与图片</button></view>
-      <button wx:if="{{hasMoreLogs}}" class="btn btn-secondary" bindtap="moreLogs">加载更多康复记录</button>
+      <button wx:if="{{hasMoreLogs}}" class="btn btn-secondary" bindtap="moreLogs">加载更多训练记录</button>
       <view wx:if="{{role==='therapist'}}">
         <view class="divider"/><view class="title">本人负责的已签到课程</view>
         <view wx:for="{{bookings}}" wx:key="id" wx:if="{{item.status==='checkedIn' &amp;&amp; item.canEditLog}}"><view class="row"><text>{{item.date}} {{item.projectName}}</text><button class="btn btn-small" data-id="{{item.id}}" bindtap="writeLog">写日志</button></view></view>
