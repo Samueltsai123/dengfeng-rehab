@@ -1,0 +1,11 @@
+{
+  "description": "登峰运动康复中心小程序。AppID 已配置，待绑定云开发环境。",
+  "packOptions": { "ignore": [], "include": [] },
+  "setting": { "urlCheck": true, "es6": true, "enhance": true, "postcss": true, "minified": true },
+  "compileType": "miniprogram",
+  "libVersion": "3.7.0",
+  "appid": "wxa4262550e4e0cb25",
+  "projectname": "dengfeng-rehab",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/"
+}

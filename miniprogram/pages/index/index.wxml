@@ -1,0 +1,1 @@
+<view class="page"><view class="hero"><view class="hero-title">登峰运动康复中心</view><view class="hero-sub">预约、课时与康复记录</view></view><view class="card"><view wx:if="{{loading}}">正在读取账号信息…</view><view wx:else class="error">{{error}}</view><button wx:if="{{!loading}}" class="btn" bindtap="load">重新加载</button></view></view>

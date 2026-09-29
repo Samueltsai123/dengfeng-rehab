@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/register/register",
+    "pages/student/student",
+    "pages/booking/booking",
+    "pages/bookings/bookings",
+    "pages/therapist/therapist",
+    "pages/admin/admin",
+    "pages/profiles/profiles",
+    "pages/profile/profile",
+    "pages/schedule/schedule",
+    "pages/staff/staff",
+    "pages/log/log"
+  ],
+  "window": {
+    "navigationBarTitleText": "登峰运动康复中心",
+    "navigationBarBackgroundColor": "#114a82",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f7fa",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

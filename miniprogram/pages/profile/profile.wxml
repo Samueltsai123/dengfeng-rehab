@@ -1,0 +1,46 @@
+<view class="page">
+  <view class="section-title">{{create?'代建学员档案':mine?'我的档案':'学员详情'}}</view>
+  <view class="card">
+    <text class="label">姓名</text><input class="field" value="{{name}}" bindinput="inputName" maxlength="30"/>
+    <text class="label">手机号</text><input class="field" value="{{phone}}" bindinput="inputPhone" type="number" maxlength="11"/>
+    <view wx:if="{{role!=='student'}}"><text class="label">康复备注</text><textarea class="field textarea" value="{{notes}}" bindinput="inputNotes" maxlength="2000" placeholder="选填"/></view>
+    <button class="btn" loading="{{saving}}" disabled="{{saving}}" bindtap="save">{{create?'创建档案':'保存资料'}}</button>
+  </view>
+  <view wx:if="{{!create}}">
+    <view class="card">
+      <view class="title">课时</view>
+      <view>剩余 {{student.balance || 0}} 节 ｜ 待签到 {{student.held || 0}} 节 ｜ 可再预约 {{student.available || 0}} 节</view>
+      <view wx:if="{{role==='admin'}}">
+        <view class="divider"/><text class="label">增减课时（减少时输入负数）</text>
+        <input class="field" type="number" value="{{delta}}" bindinput="inputDelta" placeholder="例如 10 或 -1"/>
+        <text class="label">原因</text>
+        <picker range="{{reasonOptions}}" value="{{reasonIndex}}" bindchange="changeReason"><view class="picker">{{reasonOptions[reasonIndex]}}</view></picker>
+        <input wx:if="{{reasonIndex===3}}" class="field" value="{{otherReason}}" bindinput="inputOther" placeholder="填写原因"/>
+        <button class="btn" bindtap="adjust">确认调整课时</button>
+        <view class="divider"/><view class="title">课时变动记录</view>
+        <view wx:if="{{!student.creditEntries || !student.creditEntries.length}}" class="hint">暂无记录</view>
+        <view wx:for="{{student.creditEntries}}" wx:key="id" class="muted">{{item.createdAt}} · {{item.delta}} 节 · {{item.reason}}</view>
+        <button wx:if="{{hasMoreLedger}}" class="btn btn-secondary" bindtap="moreLedger">加载更多课时记录</button>
+      </view>
+    </view>
+    <view wx:if="{{role==='admin'}}" class="card">
+      <view class="title">待绑定申请</view>
+      <view wx:if="{{!bindings.length}}" class="hint">暂无待处理申请</view>
+      <view wx:for="{{bindings}}" wx:key="accountId">
+        <view class="divider"/><view class="row"><view><view>{{item.name}} · {{item.phone}}</view><view class="hint">请线下核对本人及目标档案</view></view><button class="btn btn-small" data-id="{{item.accountId}}" bindtap="resolve">绑定此档案</button></view>
+      </view>
+      <button wx:if="{{hasMoreBindings}}" class="btn btn-secondary" bindtap="moreBindings">加载更多申请</button>
+    </view>
+    <view class="card">
+      <view class="title">康复记录</view>
+      <view wx:if="{{!logs.length}}" class="empty">暂无训练记录</view>
+      <view wx:for="{{logs}}" wx:key="id"><view class="divider"/><view>{{item.date}} · {{item.projectName}} · {{item.therapistName}}</view><view class="muted">{{item.text}}</view><button class="btn btn-secondary" data-id="{{item.bookingId}}" bindtap="log">查看日志与图片</button></view>
+      <button wx:if="{{hasMoreLogs}}" class="btn btn-secondary" bindtap="moreLogs">加载更多康复记录</button>
+      <view wx:if="{{role==='therapist'}}">
+        <view class="divider"/><view class="title">本人负责的已签到课程</view>
+        <view wx:for="{{bookings}}" wx:key="id" wx:if="{{item.status==='checkedIn' &amp;&amp; item.canEditLog}}"><view class="row"><text>{{item.date}} {{item.projectName}}</text><button class="btn btn-small" data-id="{{item.id}}" bindtap="writeLog">写日志</button></view></view>
+        <button wx:if="{{hasMoreBookings}}" class="btn btn-secondary" bindtap="moreBookings">加载更早课程</button>
+      </view>
+    </view>
+  </view>
+</view>

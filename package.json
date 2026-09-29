@@ -1,0 +1,8 @@
+{
+  "name": "dengfeng-rehab-miniprogram",
+  "private": true,
+  "scripts": {
+    "test": "node --test --test-isolation=none tests/*.test.js",
+    "check": "node --check cloudfunctions/api/index.js && node --check cloudfunctions/api/lib/service.js && node --check cloudfunctions/api/lib/rules.js"
+  }
+}
