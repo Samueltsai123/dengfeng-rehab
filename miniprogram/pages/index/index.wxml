@@ -1,1 +1,23 @@
-<view class="page"><view class="hero"><view class="hero-title">登峰</view><view class="hero-sub">预约、课时与训练记录</view></view><view class="card"><view wx:if="{{loading}}">正在读取账号信息…</view><view wx:else class="error">{{error}}</view><button wx:if="{{!loading}}" class="btn" bindtap="load">重新加载</button></view></view>
+<view class="page">
+  <image class="brand-logo" src="/assets/dengfeng_logo.jpg" mode="aspectFill"/>
+  <view class="hero">
+    <view class="hero-title">登峰</view>
+    <view class="hero-sub">预约、课时与训练记录</view>
+  </view>
+  <view wx:if="{{loading}}" class="card">正在读取账号信息…</view>
+  <block wx:else>
+    <view class="card">
+      <view class="section-title">服务项目</view>
+      <view wx:for="{{projects}}" wx:key="id" class="row">
+        <text class="title">{{item.name}}</text>
+        <text class="muted">{{item.duration}} 分钟</text>
+      </view>
+    </view>
+    <view class="card">
+      <view class="title">在线预约暂不可用</view>
+      <view class="hint">请稍后重试。学员注册、教练关联与预约功能将在服务恢复后开放。</view>
+      <view class="error">{{error}}</view>
+      <button class="btn" bindtap="load">重新加载</button>
+    </view>
+  </block>
+</view>
